@@ -1,4 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -108,17 +109,38 @@ tr:nth-child(odd) {
 					<th>First Name</th>
 					<th>Last Name</th>
 					<th>Email Name</th>
+					<th>Action</th>
+					
+					
 				</tr>
 				
 				
-				<c:forEach var="tempCustomer" items="${customers}">
+						<c:forEach var="tempCustomer" items="${customers}">
 				
-				
+					<!-- construct an "update" link with customer id -->
+					<c:url var="updateLink" value="/customer/showFormForUpdate">
+						<c:param name="customerId" value="${tempCustomer.id}" />
+					</c:url>
+					
+					<c:url var="deleteLink" value="/customer/delete">
+						<c:param name="customerId" value="${tempCustomer.id}" />
+					</c:url>					
+					
 					<tr>
-					<td>${tempCustomer.firstName }</td>
-					<td>${tempCustomer.lastName }</td>
-					<td>${tempCustomer.email }</td>
+						<td> ${tempCustomer.firstName} </td>
+						<td> ${tempCustomer.lastName} </td>
+						<td> ${tempCustomer.email} </td>
+						
+						<td>
+							<!-- display the update link -->
+							<a href="${updateLink}">Update</a>
+							|
+							
+							<a href="${deleteLink}">Delete</a>
+						</td>
+						
 					</tr>
+				
 				</c:forEach>
 			</table>
 		</div>
